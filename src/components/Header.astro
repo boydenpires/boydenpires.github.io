@@ -1,0 +1,35 @@
+---
+import { Image } from "astro:assets";
+import Button from "./Button.astro";
+import headerImg from "../assets/header-photo.jpg";
+---
+
+<header
+  class="mx-auto w-full max-w-5xl px-6 py-12 md:px-12 lg:px-16 flex-1 flex items-center justify-between gap-10"
+>
+  <div>
+    <h1 class="text-black font-bold text-5xl mb-[42px]">
+      Hey, I'm <br /> Boyden Pires.
+    </h1>
+    <p class="text-black font-medium text-3xl mb-[60px]">
+      A <span class="text-gray-500">Frontend Developer</span>, turning ideas
+      into <br /> interfaces people enjoy using.
+    </p>
+
+    <Button
+      text="Take a Look"
+      variant="inverted"
+      icon="arrow_downward_alt"
+      iconPosition="right"
+    />
+  </div>
+  <Image
+    class="rounded-3xl"
+    src={headerImg}
+    alt="A photo of me"
+    width={220}
+    data-tilt
+    data-tilt-glare
+    data-tilt-max-glare="0.3"
+  />
+</header>

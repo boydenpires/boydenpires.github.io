@@ -1,0 +1,33 @@
+---
+import { Image } from "astro:assets";
+import headerImg from "../../assets/header-photo.jpg";
+---
+
+<section class="wrapper my-28">
+  <div
+    class="bg-[#F5E7E7] p-10 rounded-4xl flex gap-6 items-center justify-between"
+  >
+    <div class="w-full max-w-[65ch]">
+      <h2 class="text-3xl font-bold text-black mb-3">A Bit About Me.</h2>
+      <p class="text-[16px] text-black">
+        A frontend developer based in India with over 4 years of experience
+        working on production web applications and scalable frontend systems. I
+        focus on clean, intuitive interfaces, smooth interactions, and
+        maintainable architecture, collaborating closely with designers and
+        backend teams.
+        <br /><br />
+        Outside of work, I spend time playing guitar, still learning but enjoying
+        the process.
+      </p>
+    </div>
+    <Image
+      class="rounded-3xl"
+      src={headerImg}
+      alt="A photo of me"
+      width={120}
+      data-tilt
+      data-tilt-glare
+      data-tilt-max-glare="0.3"
+    />
+  </div>
+</section>

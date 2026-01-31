@@ -1,0 +1,13 @@
+---
+interface Props {
+  heading: string;
+  subText?: string;
+}
+
+const { heading, subText } = Astro.props;
+---
+
+<div class="flex flex-col gap-5">
+  <h2 class="text-black font-bold text-4xl">{heading}</h2>
+  {subText && <p class="text-black text-[18px]">{subText}</p>}
+</div>

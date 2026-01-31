@@ -1,0 +1,25 @@
+---
+import CardExperience from "../cards/Experience.astro";
+import SliderButton from "../SliderButton.astro";
+import Heading from "../Heading.astro";
+---
+
+<section class="my-28 pb-28">
+  <div class="wrapper mb-16">
+    <Heading
+      heading="Building for the Real World."
+      subText="Over 4 years of experience building and maintaining production frontend applications."
+    />
+  </div>
+
+  <div class="w-full flex items-center gap-16 overflow-hidden pl-wrapper-start">
+    <CardExperience />
+    <CardExperience />
+  </div>
+
+  <div class="wrapper mt-8 flex items-center gap-3">
+    <!--  -->
+    <SliderButton direction="left" />
+    <SliderButton direction="right" />
+  </div>
+</section>
