@@ -1,0 +1,24 @@
+---
+interface Props {
+  list: string[];
+}
+
+const { list } = Astro.props;
+---
+
+<div class="group w-full overflow-hidden bg-green-50 py-2">
+  <div class="flex items-center">
+    {
+      Array.from({ length: 4 }).map((_) => (
+        <ul class="animate-loop-scroll flex items-center gap-8 group-hover:paused pl-8">
+          {list.map((item) => (
+            <>
+              <li class="whitespace-nowrap text-sm text-black">{item}</li>
+              <li class="h-1.5 w-1.5 rounded-full bg-black" />
+            </>
+          ))}
+        </ul>
+      ))
+    }
+  </div>
+</div>

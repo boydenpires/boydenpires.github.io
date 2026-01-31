@@ -1,0 +1,36 @@
+---
+import Button from "./Button.astro";
+import Logo from "./Logo.astro";
+
+interface Props {
+  anchors: { id: string; text: string }[];
+}
+
+const { anchors } = Astro.props;
+---
+
+<nav class="flex items-center gap-12 py-8">
+  <Logo width="70" />
+
+  <ul class="flex items-center gap-8 text-black text-[16px] font-medium">
+    {
+      anchors.map((anchor) => (
+        <li class="group hover:text-green-100">
+          <a href={`#${anchor.id}`}>
+            <span class="opacity-0 group-hover:opacity-100 transition-opacity">
+              #
+            </span>
+            {anchor.text}
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+
+  <Button
+    class="ml-auto"
+    text="Let's Connect"
+    icon="mail"
+    iconPosition="left"
+  />
+</nav>

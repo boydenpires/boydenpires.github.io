@@ -1,8 +1,101 @@
 ---
+import { Image } from "astro:assets";
+
 import "../styles/global.css";
 import Layout from "../layouts/Layout.astro";
+import Navbar from "../components/Navbar.astro";
+import Marquee from "../components/Marquee.astro";
+import Button from "../components/Button.astro";
+import headerImg from "../assets/header-photo.jpg";
+
+const marqueeList = [
+  "Based in Goa, India",
+  "4+ years of Experience",
+  "Vue / React / Typescript",
+  "Agile Teams",
+  "Open to opportunities",
+  "Guitar enthusiast",
+];
+
+const anchors = [
+  { id: "about", text: "About" },
+  { id: "experience", text: "Experience" },
+  { id: "tech-stack", text: "Tech Stack" },
+  { id: "workflow", text: "Workflow" },
+];
 ---
 
 <Layout>
-  <h1 class="text-3xl font-bold font-outfit">Hello world!</h1>
+  <section class="min-h-screen flex flex-col">
+    <Marquee list={marqueeList} />
+
+    <div class="wrapper sticky top-0 z-10">
+      <Navbar anchors={anchors} />
+    </div>
+
+    <header
+      class="mx-auto w-full max-w-5xl px-6 md:px-12 lg:px-16 flex-1 flex items-center justify-between gap-10"
+    >
+      <div>
+        <h1 class="text-black font-bold text-5xl mb-[42px]">
+          Hey, I'm <br /> Boyden Pires.
+        </h1>
+        <p class="text-black font-medium text-3xl mb-[60px]">
+          A <span class="text-gray-500">Frontend Developer</span>, turning ideas
+          into <br /> interfaces people enjoy using.
+        </p>
+
+        <Button
+          text="Take a Look"
+          variant="inverted"
+          icon="arrow_downward_alt"
+          iconPosition="right"
+        />
+      </div>
+      <Image
+        class="rounded-3xl"
+        src={headerImg}
+        alt="A photo of me"
+        width={220}
+        data-tilt
+        data-tilt-glare
+        data-tilt-max-glare="0.3"
+      />
+    </header>
+  </section>
+
+  <section class="wrapper my-6">
+    <div
+      class="bg-[#F5E7E7] p-10 rounded-4xl flex gap-6 items-center justify-between"
+    >
+      <div class="w-full max-w-[65ch]">
+        <h2 class="text-3xl font-bold text-black mb-3">A Bit About Me.</h2>
+        <p class="text-[16px] text-black">
+          A frontend developer based in India with over 4 years of experience
+          working on production web applications and scalable frontend systems.
+          I focus on clean, intuitive interfaces, smooth interactions, and
+          maintainable architecture, collaborating closely with designers and
+          backend teams.
+          <br /><br />
+          Outside of work, I spend time playing guitar, still learning but enjoying
+          the process.
+        </p>
+      </div>
+      <Image
+        class="rounded-3xl"
+        src={headerImg}
+        alt="A photo of me"
+        width={120}
+        data-tilt
+        data-tilt-glare
+        data-tilt-max-glare="0.3"
+      />
+    </div>
+  </section>
+
+  <section class="wrapper">
+    <h1>test</h1>
+  </section>
 </Layout>
+
+<script src="../scripts/title.js"></script>

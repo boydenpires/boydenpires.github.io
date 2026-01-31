@@ -1,0 +1,51 @@
+---
+interface Props {
+  text: string;
+  variant?: "default" | "inverted";
+  icon?: string;
+  iconPosition?: "left" | "right" | "iconOnly";
+  class?: string;
+}
+
+const {
+  text,
+  variant = "default",
+  icon,
+  iconPosition = "left",
+  class: className,
+} = Astro.props;
+
+const isIconOnly = iconPosition === "iconOnly";
+
+const variantClasses = {
+  default: "bg-black text-white hover:bg-gray-800",
+  inverted: "bg-white text-black border border-black hover:bg-gray-100",
+};
+---
+
+<button
+  class:list={[
+    "rounded-full inline-flex items-center justify-center gap-2 cursor-pointer transition-colors",
+    variantClasses[variant],
+    isIconOnly ? "p-4" : "py-2.5 px-4",
+    className,
+  ]}
+>
+  {
+    icon && (iconPosition === "left" || isIconOnly) && (
+      <span class="material-symbols-outlined text-green-50 text-[18px]!">
+        {icon}
+      </span>
+    )
+  }
+
+  {!isIconOnly && <span class="text-[14px]">{text}</span>}
+
+  {
+    icon && iconPosition === "right" && (
+      <span class="material-symbols-outlined text-green-50 text-[18px]!">
+        {icon}
+      </span>
+    )
+  }
+</button>
