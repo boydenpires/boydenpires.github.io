@@ -19,9 +19,9 @@ const { anchors } = Astro.props;
   >
     {
       anchors.map((anchor) => (
-        <li class="group hover:text-green-100">
-          <a href={`#${anchor.id}`}>
-            <span class="opacity-0 group-hover:opacity-100 transition-opacity">
+        <li class="group hover:text-green-100 transition-colors">
+          <a href={`#${anchor.id}`} class="nav-link flex items-center gap-0.5">
+            <span class="hash opacity-0 group-hover:opacity-100 transition-opacity">
               #
             </span>
             {anchor.text}
@@ -38,3 +38,45 @@ const { anchors } = Astro.props;
     iconPosition="left"
   />
 </nav>
+
+<script>
+  const navLinks = document.querySelectorAll(".nav-link");
+  const sections = document.querySelectorAll("section[id]");
+
+  const observerOptions = {
+    root: null,
+    rootMargin: "-45% 0px -45% 0px",
+    threshold: 0,
+  };
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      const id = entry.target.getAttribute("id");
+      const link = document.querySelector(`.nav-link[href="#${id}"]`);
+
+      if (!link) return;
+
+      if (entry.isIntersecting) {
+        // Section is in the middle of the screen: Make it active
+
+        // Clear active state from all links
+        navLinks.forEach((l) => {
+          l.parentElement?.classList.remove("text-green-100");
+          l.querySelector(".hash")?.classList.remove("opacity-100");
+        });
+
+        // Set active state for the current link
+        link.parentElement?.classList.add("text-green-100");
+        link.querySelector(".hash")?.classList.add("opacity-100");
+      } else {
+        // Section left the middle of the screen: Remove its active state
+        link.parentElement?.classList.remove("text-green-100");
+        link.querySelector(".hash")?.classList.remove("opacity-100");
+      }
+    });
+  }, observerOptions);
+
+  sections.forEach((section) => {
+    observer.observe(section);
+  });
+</script>

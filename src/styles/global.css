@@ -25,6 +25,7 @@
   html {
     font-family: var(--font-outfit);
     -webkit-font-smoothing: antialiased;
+    scroll-behavior: smooth;
   }
 
   body {
