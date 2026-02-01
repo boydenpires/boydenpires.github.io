@@ -39,7 +39,8 @@ const experienceCards = [
   </div>
 
   <div
-    class="w-full flex items-center gap-8 lg:gap-16 overflow-auto pl-wrapper-start pr-wrapper-start no-scrollbar"
+    id="experienceContainer"
+    class="w-full flex items-center gap-8 lg:gap-16 overflow-auto pl-wrapper-start pr-wrapper-start no-scrollbar scroll-smooth"
   >
     {experienceCards.map((card) => <CardExperience {...card} />)}
   </div>
@@ -57,6 +58,10 @@ const experienceCards = [
   const modalOverlay = document.getElementById("modalOverlayExperience");
   const modal = document.getElementById("modalExperience");
   const btnCloseModal = document.getElementById("modalCloseExperience");
+
+  const experienceContainer = document.getElementById("experienceContainer");
+  const sliderBtnLeft = document.querySelector('button[data-direction="left"]');
+  const sliderBtnRight = document.querySelector('button[data-direction="right"]');
 
   // Elements to update
   const modalLabel = document.getElementById("experienceModalLabel");
@@ -125,4 +130,18 @@ const experienceCards = [
   });
 
   btnCloseModal?.addEventListener("click", handleModalClose);
+
+  sliderBtnLeft?.addEventListener("click", () => {
+    experienceContainer?.scrollTo({
+      left: 0,
+      behavior: "smooth",
+    });
+  });
+
+  sliderBtnRight?.addEventListener("click", () => {
+    experienceContainer?.scrollTo({
+      left: experienceContainer.scrollWidth,
+      behavior: "smooth",
+    });
+  });
 </script>
