@@ -2,17 +2,21 @@
 interface Props {
   id?: string;
   text?: string;
+  type?: "button" | "link";
+  href?: string;
   variant?: "default" | "inverted";
   size?: "default" | "small";
   icon?: string;
   iconPosition?: "left" | "right" | "iconOnly";
   class?: string;
-  rest?: any;
+  [key: string]: any;
 }
 
 const {
   id,
   text,
+  type = "button",
+  href,
   variant = "default",
   size = "default",
   icon,
@@ -37,50 +41,76 @@ const iconOnlysizeClasses = {
   default: "p-4",
   small: "p-2",
 };
+
+const classes = [
+  "rounded-full inline-flex items-center justify-center cursor-pointer transition-colors",
+  size === "small" ? "gap-1" : "gap-2",
+  variantClasses[variant],
+  isIconOnly ? iconOnlysizeClasses[size] : sizeClasses[size],
+  className,
+];
 ---
 
-<button
-  class:list={[
-    "rounded-full inline-flex items-center justify-center cursor-pointer transition-colors",
-    size === "small" ? "gap-1" : "gap-2",
-    variantClasses[variant],
-    isIconOnly ? iconOnlysizeClasses[size] : sizeClasses[size],
-    className,
-  ]}
-  id={id}
-  {...rest}
->
-  {
-    icon && (iconPosition === "left" || isIconOnly) && (
-      <span
-        class:list={[
-          "material-symbols-outlined text-green-50",
-          size === "small" ? "text-[14px]!" : "text-[18px]!",
-        ]}
-      >
-        {icon}
-      </span>
-    )
-  }
+{
+  type === "link" ? (
+    <a class:list={classes} id={id} href={href} {...rest}>
+      {icon && (iconPosition === "left" || isIconOnly) && (
+        <span
+          class:list={[
+            "material-symbols-outlined text-green-50",
+            size === "small" ? "text-[14px]!" : "text-[18px]!",
+          ]}
+        >
+          {icon}
+        </span>
+      )}
 
-  {
-    !isIconOnly && (
-      <span class={size === "small" ? "text-[12px]" : "text-[14px]"}>
-        {text}
-      </span>
-    )
-  }
+      {!isIconOnly && (
+        <span class={size === "small" ? "text-[12px]" : "text-[14px]"}>
+          {text}
+        </span>
+      )}
 
-  {
-    icon && iconPosition === "right" && (
-      <span
-        class:list={[
-          "material-symbols-outlined text-green-50",
-          size === "small" ? "text-[14px]!" : "text-[18px]!",
-        ]}
-      >
-        {icon}
-      </span>
-    )
-  }
-</button>
+      {icon && iconPosition === "right" && (
+        <span
+          class:list={[
+            "material-symbols-outlined text-green-50",
+            size === "small" ? "text-[14px]!" : "text-[18px]!",
+          ]}
+        >
+          {icon}
+        </span>
+      )}
+    </a>
+  ) : (
+    <button class:list={classes} id={id} {...rest}>
+      {icon && (iconPosition === "left" || isIconOnly) && (
+        <span
+          class:list={[
+            "material-symbols-outlined text-green-50",
+            size === "small" ? "text-[14px]!" : "text-[18px]!",
+          ]}
+        >
+          {icon}
+        </span>
+      )}
+
+      {!isIconOnly && (
+        <span class={size === "small" ? "text-[12px]" : "text-[14px]"}>
+          {text}
+        </span>
+      )}
+
+      {icon && iconPosition === "right" && (
+        <span
+          class:list={[
+            "material-symbols-outlined text-green-50",
+            size === "small" ? "text-[14px]!" : "text-[18px]!",
+          ]}
+        >
+          {icon}
+        </span>
+      )}
+    </button>
+  )
+}

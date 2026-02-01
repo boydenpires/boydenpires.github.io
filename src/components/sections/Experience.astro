@@ -111,8 +111,8 @@ const experienceCards = [
     // Trigger animation
     setTimeout(() => {
       modalOverlay.classList.remove("opacity-0");
-      modal.classList.remove("scale-95");
-      modal.classList.add("scale-100");
+      modal.classList.remove("translate-y-full", "md:scale-95");
+      modal.classList.add("translate-y-0", "md:scale-100");
       
       // Focus management
       btnCloseModal?.focus();
@@ -123,8 +123,8 @@ const experienceCards = [
     if (!modalOverlay || !modal) return;
 
     modalOverlay.classList.add("opacity-0");
-    modal.classList.remove("scale-100");
-    modal.classList.add("scale-95");
+    modal.classList.remove("translate-y-0", "md:scale-100");
+    modal.classList.add("translate-y-full", "md:scale-95");
 
     if (lastFocusedElement) {
         lastFocusedElement.setAttribute("aria-expanded", "false");
