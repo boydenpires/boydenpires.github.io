@@ -4,7 +4,7 @@ import Heading from "../Heading.astro";
 const workflowItems = [
   {
     id: "planning",
-    label: "1. Planning",
+    label: "Planning",
     icon: "calendar_clock",
     color: "#FFA000",
     description:
@@ -12,7 +12,7 @@ const workflowItems = [
   },
   {
     id: "collaboration",
-    label: "2. Collaboration",
+    label: "Collaboration",
     icon: "partner_exchange",
     color: "#673AB7",
     description:
@@ -20,7 +20,7 @@ const workflowItems = [
   },
   {
     id: "implementation",
-    label: "3. Implementation",
+    label: "Implementation",
     icon: "code",
     color: "#1E88E5",
     description:
@@ -28,7 +28,7 @@ const workflowItems = [
   },
   {
     id: "review",
-    label: "4. Review",
+    label: "Review",
     icon: "rate_review",
     color: "#009688",
     description:
@@ -36,7 +36,7 @@ const workflowItems = [
   },
   {
     id: "testing",
-    label: "5. Testing",
+    label: "Testing",
     icon: "bug_report",
     color: "#EF5350",
     description:
@@ -44,7 +44,7 @@ const workflowItems = [
   },
   {
     id: "launch",
-    label: "6. Launch",
+    label: "Launch",
     icon: "rocket_launch",
     color: "#4CAF50",
     description:
@@ -75,7 +75,7 @@ const workflowItems = [
           >
             {item.icon}
           </span>
-          {item.label}
+          {`${index + 1}. ${item.label}`}
         </button>
       ))
     }
