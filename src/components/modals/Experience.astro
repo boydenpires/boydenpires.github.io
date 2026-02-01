@@ -1,0 +1,54 @@
+---
+import { Image } from "astro:assets";
+import Button from "../Button.astro";
+
+interface Props {
+  label: string;
+  logo: ImageMetadata;
+  logoLink: string;
+  yoe: string;
+  heading: string;
+  summary: string;
+}
+
+const { label, logo, logoLink, yoe, heading, summary } = Astro.props;
+---
+
+<div
+  class="hidden place-items-center fixed inset-0 bg-black/50 backdrop-blur-xs z-50 opacity-0 transition-opacity duration-300"
+  id="modalOverlayExperience"
+  aria-hidden="true"
+  role="dialog"
+  aria-modal="true"
+>
+  <div
+    id="modalExperience"
+    class="bg-white rounded-[28px] max-w-3xl w-full px-12 py-10 transform scale-95 transition-transform duration-300"
+  >
+    <div class="flex items-center justify-between mb-4">
+      <span
+        id="experienceModalLabel"
+        class="inline-block px-2 py-1 bg-green-50 rounded-[8px] text-[12px] text-black"
+        >{label}</span
+      >
+      <Button
+        id="modalCloseExperience"
+        size="small"
+        icon="close"
+        iconPosition="iconOnly"
+      />
+    </div>
+    <div class="flex items-center gap-4 mb-8">
+      <a id="experienceModalLogoLink" href={logoLink} target="_blank">
+        <Image id="experienceModalLogo" src={logo} alt="The logo of my current company" width={54} />
+      </a>
+      <span id="experienceModalYoe" class="font-semibold text-[14px] text-[#545454]">{yoe}</span>
+    </div>
+    <h2 id="experienceModalHeading" class="font-medium text-xl mb-4">
+      {heading}
+    </h2>
+    <p id="experienceModalSummary" class="text-[16px]">
+      {summary}
+    </p>
+  </div>
+</div>

@@ -26,6 +26,10 @@
     font-family: var(--font-outfit);
     -webkit-font-smoothing: antialiased;
   }
+
+  body {
+    height: unset !important;
+  }
 }
 
 @utility paused {
@@ -34,6 +38,10 @@
 
 @utility wrapper {
   @apply mx-auto w-full max-w-7xl px-6 md:px-12 lg:px-16;
+}
+
+@utility wrapper-short {
+  @apply mx-auto w-full max-w-5xl px-6 md:px-12 lg:px-16;
 }
 
 @utility pl-wrapper-start {
@@ -49,6 +57,36 @@
 
   @media (width >= 80rem) {
     /* 80rem = 7xl */
-    padding-left: calc((100vw - 80rem) / 2 + 4rem);
+    padding-left: calc((100vw - 80rem) / 2 + 3rem);
+  }
+}
+
+@utility pr-wrapper-start {
+  padding-right: 1.5rem;
+
+  @media (width >= 48rem) {
+    padding-right: 3rem;
+  }
+
+  @media (width >= 64rem) {
+    padding-right: 4rem;
+  }
+
+  @media (width >= 80rem) {
+    /* 80rem = 7xl */
+    padding-right: calc((100vw - 80rem) / 2 + 3rem);
+  }
+}
+
+@utility no-scrollbar {
+  /* Firefox */
+  scrollbar-width: none;
+
+  /* IE and Edge */
+  -ms-overflow-style: none;
+
+  /* Chrome, Safari and Opera */
+  &::-webkit-scrollbar {
+    display: none;
   }
 }

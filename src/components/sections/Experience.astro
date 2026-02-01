@@ -2,9 +2,35 @@
 import CardExperience from "../cards/Experience.astro";
 import SliderButton from "../SliderButton.astro";
 import Heading from "../Heading.astro";
+import logoSmartshore from "../../assets/logos/logo-smartshore.svg";
+import logoNerve from "../../assets/logos/logo-nerve.svg";
+import ModalExperience from "../modals/Experience.astro";
+
+const experienceCards = [
+  {
+    experienceId: "smartshore",
+    label: "Current Company",
+    logo: logoSmartshore,
+    logoLink: "https://smartshore.com/en",
+    yoe: "3+ years of experience",
+    heading: "Frontend Developer At Smartshore Ability.",
+    summary:
+      "Over the past few years, I've been working on production ready web applications used by real users, with a strong focus on clean UI, performance, and long-term...",
+  },
+  {
+    experienceId: "nerve",
+    label: "Previous Company",
+    logo: logoNerve,
+    logoLink: "https://www.nerve.solutions/",
+    yoe: "Around 1 year of experience",
+    heading: "Frontend Developer At Nerve Solutions.",
+    summary:
+      "Over the past few years, I've been working on production ready web applications used by real users, with a strong focus on clean UI, performance, and long-term...",
+  },
+];
 ---
 
-<section class="my-28 pb-28">
+<section>
   <div class="wrapper mb-16">
     <Heading
       heading="Building for the Real World."
@@ -12,14 +38,91 @@ import Heading from "../Heading.astro";
     />
   </div>
 
-  <div class="w-full flex items-center gap-16 overflow-hidden pl-wrapper-start">
-    <CardExperience />
-    <CardExperience />
+  <div
+    class="w-full flex items-center gap-8 lg:gap-16 overflow-auto pl-wrapper-start pr-wrapper-start no-scrollbar"
+  >
+    {experienceCards.map((card) => <CardExperience {...card} />)}
   </div>
 
   <div class="wrapper mt-8 flex items-center gap-3">
-    <!--  -->
     <SliderButton direction="left" />
     <SliderButton direction="right" />
   </div>
 </section>
+
+<ModalExperience {...experienceCards[0]} />
+
+<script define:vars={{ experienceCards }}>
+  const buttons = document.querySelectorAll("button[data-experience-id]");
+  const modalOverlay = document.getElementById("modalOverlayExperience");
+  const modal = document.getElementById("modalExperience");
+  const btnCloseModal = document.getElementById("modalCloseExperience");
+
+  // Elements to update
+  const modalLabel = document.getElementById("experienceModalLabel");
+  const modalLogoLink = document.getElementById("experienceModalLogoLink");
+  const modalLogo = document.getElementById("experienceModalLogo");
+  const modalYoe = document.getElementById("experienceModalYoe");
+  const modalHeading = document.getElementById("experienceModalHeading");
+  const modalSummary = document.getElementById("experienceModalSummary");
+
+  function handleModalOpen(e) {
+    if (!modalOverlay || !modal) return;
+
+    const target = e.currentTarget;
+    const id = target.dataset.experienceId;
+
+    const data = experienceCards.find((card) => card.experienceId === id);
+
+    if (data) {
+      if (modalLabel) modalLabel.innerText = data.label;
+      if (modalLogoLink) modalLogoLink.href = data.logoLink;
+      if (modalLogo) modalLogo.src = data.logo.src;
+      if (modalYoe) modalYoe.innerText = data.yoe;
+      if (modalHeading) modalHeading.innerText = data.heading;
+      if (modalSummary) modalSummary.innerText = data.summary;
+    }
+
+    console.log(`You clicked the button for ID: ${id}`);
+
+    const scrollbarWidth =
+      window.innerWidth - document.documentElement.clientWidth;
+
+    modalOverlay.classList.remove("hidden");
+    modalOverlay.classList.add("grid");
+    modalOverlay.setAttribute("aria-hidden", "false");
+
+    document.body.style.overflow = "hidden";
+    document.body.style.paddingRight = `${scrollbarWidth}px`;
+
+    // Trigger animation
+    setTimeout(() => {
+      modalOverlay.classList.remove("opacity-0");
+      modal.classList.remove("scale-95");
+      modal.classList.add("scale-100");
+    }, 10);
+  }
+
+  function handleModalClose() {
+    if (!modalOverlay || !modal) return;
+
+    modalOverlay.classList.add("opacity-0");
+    modal.classList.remove("scale-100");
+    modal.classList.add("scale-95");
+
+    setTimeout(() => {
+      modalOverlay.classList.add("hidden");
+      modalOverlay.classList.remove("flex");
+      modalOverlay.setAttribute("aria-hidden", "true");
+
+      document.body.style.overflow = "";
+      document.body.style.paddingRight = "";
+    }, 300); // Match transition duration
+  }
+
+  buttons.forEach((btn) => {
+    btn.addEventListener("click", handleModalOpen);
+  });
+
+  btnCloseModal?.addEventListener("click", handleModalClose);
+</script>

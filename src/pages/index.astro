@@ -1,15 +1,38 @@
 ---
 import "../styles/global.css";
 import Layout from "../layouts/Layout.astro";
-import SectionLanding from "../components/sections/Landing.astro";
 import SectionExperience from "../components/sections/Experience.astro";
 import SectionAbout from "../components/sections/About.astro";
+import Marquee from "../components/Marquee.astro";
+import Navbar from "../components/Navbar.astro";
+import SectionHeader from "../components/sections/Header.astro";
+
+const marqueeList = [
+  "Based in Goa, India",
+  "4+ years of Experience",
+  "Vue / React / Typescript",
+  "Agile Teams",
+  "Open to opportunities",
+  "Guitar enthusiast",
+];
+
+const anchors = [
+  { id: "about", text: "About" },
+  { id: "experience", text: "Experience" },
+  { id: "tech-stack", text: "Tech Stack" },
+  { id: "workflow", text: "Workflow" },
+];
 ---
 
 <Layout>
-  <SectionLanding />
-  <SectionAbout />
-  <SectionExperience />
+  <Marquee list={marqueeList} />
+  <Navbar anchors={anchors} />
+
+  <div class="flex flex-col gap-20 lg:gap-30">
+    <SectionHeader />
+    <SectionAbout />
+    <SectionExperience />
+  </div>
 </Layout>
 
 <script src="../scripts/title.js"></script>

@@ -4,16 +4,19 @@ import Logo from "./Logo.astro";
 
 interface Props {
   anchors: { id: string; text: string }[];
-  class?: string;
 }
 
-const { anchors, class: className } = Astro.props;
+const { anchors } = Astro.props;
 ---
 
-<nav class:list={["flex items-center gap-12 py-8", className]}>
+<nav
+  class="wrapper flex items-center gap-12 py-4 sticky top-0 z-10 bg-white/95 backdrop-blur-xs"
+>
   <Logo width="70" />
 
-  <ul class="flex items-center gap-8 text-black text-[16px] font-medium">
+  <ul
+    class="hidden lg:flex items-center gap-8 text-black text-[16px] font-medium"
+  >
     {
       anchors.map((anchor) => (
         <li class="group hover:text-green-100">

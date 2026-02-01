@@ -1,20 +1,24 @@
 ---
 interface Props {
-  text: string;
+  id?: string;
+  text?: string;
   variant?: "default" | "inverted";
   size?: "default" | "small";
   icon?: string;
   iconPosition?: "left" | "right" | "iconOnly";
   class?: string;
+  rest?: any;
 }
 
 const {
+  id,
   text,
   variant = "default",
   size = "default",
   icon,
   iconPosition = "left",
   class: className,
+  ...rest
 } = Astro.props;
 
 const isIconOnly = iconPosition === "iconOnly";
@@ -43,6 +47,8 @@ const iconOnlysizeClasses = {
     isIconOnly ? iconOnlysizeClasses[size] : sizeClasses[size],
     className,
   ]}
+  id={id}
+  {...rest}
 >
   {
     icon && (iconPosition === "left" || isIconOnly) && (
