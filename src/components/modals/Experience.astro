@@ -36,11 +36,12 @@ const { label, logo, logoLink, yoe, heading, summary } = Astro.props;
         size="small"
         icon="close"
         iconPosition="iconOnly"
+        aria-label="Close modal"
       />
     </div>
     <div class="flex items-center gap-4 mb-8">
       <a id="experienceModalLogoLink" href={logoLink} target="_blank">
-        <Image id="experienceModalLogo" src={logo} alt="The logo of my current company" width={54} />
+        <Image id="experienceModalLogo" src={logo} alt={`Logo of ${label}`} width={54} />
       </a>
       <span id="experienceModalYoe" class="font-semibold text-[14px] text-[#545454]">{yoe}</span>
     </div>

@@ -71,18 +71,26 @@ const experienceCards = [
   const modalHeading = document.getElementById("experienceModalHeading");
   const modalSummary = document.getElementById("experienceModalSummary");
 
+  let lastFocusedElement = null;
+
   function handleModalOpen(e) {
     if (!modalOverlay || !modal) return;
 
     const target = e.currentTarget;
     const id = target.dataset.experienceId;
 
+    lastFocusedElement = target;
+    target.setAttribute("aria-expanded", "true");
+
     const data = experienceCards.find((card) => card.experienceId === id);
 
     if (data) {
       if (modalLabel) modalLabel.innerText = data.label;
       if (modalLogoLink) modalLogoLink.href = data.logoLink;
-      if (modalLogo) modalLogo.src = data.logo.src;
+      if (modalLogo) {
+        modalLogo.src = data.logo.src;
+        modalLogo.alt = `Logo of ${data.label}`;
+      }
       if (modalYoe) modalYoe.innerText = data.yoe;
       if (modalHeading) modalHeading.innerText = data.heading;
       if (modalSummary) modalSummary.innerText = data.summary;
@@ -105,6 +113,9 @@ const experienceCards = [
       modalOverlay.classList.remove("opacity-0");
       modal.classList.remove("scale-95");
       modal.classList.add("scale-100");
+      
+      // Focus management
+      btnCloseModal?.focus();
     }, 10);
   }
 
@@ -114,6 +125,11 @@ const experienceCards = [
     modalOverlay.classList.add("opacity-0");
     modal.classList.remove("scale-100");
     modal.classList.add("scale-95");
+
+    if (lastFocusedElement) {
+        lastFocusedElement.setAttribute("aria-expanded", "false");
+        lastFocusedElement.focus();
+    }
 
     setTimeout(() => {
       modalOverlay.classList.add("hidden");
@@ -130,6 +146,13 @@ const experienceCards = [
   });
 
   btnCloseModal?.addEventListener("click", handleModalClose);
+
+  // Close on Escape key
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && !modalOverlay.classList.contains("hidden")) {
+      handleModalClose();
+    }
+  });
 
   sliderBtnLeft?.addEventListener("click", () => {
     experienceContainer?.scrollTo({
