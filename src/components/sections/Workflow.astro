@@ -1,21 +1,175 @@
 ---
 import Heading from "../Heading.astro";
+
+const workflowItems = [
+  {
+    id: "planning",
+    label: "1. Planning",
+    icon: "calendar_clock",
+    color: "#FFA000",
+    description:
+      "Requirements are broken down into clear tasks and planned into Agile sprints using Scrum practices, keeping work structured and delivery predictable.",
+  },
+  {
+    id: "collaboration",
+    label: "2. Collaboration",
+    icon: "partner_exchange",
+    color: "#673AB7",
+    description:
+      "Close alignment with backend engineers and designers throughout standups, sprint reviews, and retrospectives ensures APIs, UX, and technical decisions stay consistent across the product.",
+  },
+  {
+    id: "implementation",
+    label: "3. Implementation",
+    icon: "code",
+    color: "#1E88E5",
+    description:
+      "Scalable, maintainable, and DRY frontend code is written using modern frameworks, with a focus on reusable components and clean architecture. AI assisted tools like Claude Code and Gemini CLI are used to explore alternatives and speed up refactoring, whilst it's carefully reviewed manually.",
+  },
+  {
+    id: "review",
+    label: "4. Review",
+    icon: "rate_review",
+    color: "#009688",
+    description:
+      "Code quality is maintained through peer reviews and pair programming, ensuring readability, consistency, and long-term maintainability. Feedback loops help maintain high standards and share knowledge across the team.",
+  },
+  {
+    id: "testing",
+    label: "5. Testing",
+    icon: "bug_report",
+    color: "#EF5350",
+    description:
+      "Unit and end-to-end tests are written with tools like Vitest and Playwright to ensure features work as expected, catch regressions early, and maintain stability across browsers and devices.",
+  },
+  {
+    id: "launch",
+    label: "6. Launch",
+    icon: "rocket_launch",
+    color: "#4CAF50",
+    description:
+      "Features are deployed in collaboration with DevOps teams, monitored in production, and continuously iterated to maintain stability and performance, with Docker workflows ensuring smooth handoffs.",
+  },
+];
 ---
 
-<section class="wrapper" id="workflow">
+<section class="wrapper-short" id="workflow">
   <Heading
     heading="How I Work."
     subText="Building, shipping, and maintaining frontend code together with cross-functional teams."
   />
 
-  <div>
-    <button
-      class="py-1.5 px-3.5 border border-black rounded-full text-[14px] flex items-center gap-1.5 cursor-pointer"
-    >
-      <span class="material-symbols-outlined text-[#FFA000] text-[14px]!"
-        >calendar_clock</span
-      >
-      Planning
-    </button>
+  <div class="flex items-center flex-wrap gap-3 mb-10">
+    {
+      workflowItems.map((item, index) => (
+        <button
+          data-id={item.id}
+          class:list={[
+            "workflow-btn py-1.5 px-3.5 border border-black rounded-full text-[14px] flex items-center gap-1.5 cursor-pointer whitespace-nowrap transition-colors duration-200",
+            index === 0 ? "bg-black text-white" : "bg-transparent text-black",
+          ]}
+        >
+          <span
+            class="material-symbols-outlined text-[18px]!"
+            style={`color: ${item.color}`}
+          >
+            {item.icon}
+          </span>
+          {item.label}
+        </button>
+      ))
+    }
+  </div>
+
+  <div
+    id="workflowCard"
+    class="p-10 border rounded-3xl transition-all duration-300 overflow-hidden"
+    style={`border-color: ${workflowItems[0].color}; background-color: ${workflowItems[0].color}0d`}
+  >
+    <div id="workflowContent" class="transition-all duration-300 ease-in-out">
+      <div class="flex items-center gap-3 mb-4">
+        <span
+          id="workflowIcon"
+          class="material-symbols-outlined text-[28px]!"
+          style={`color: ${workflowItems[0].color}`}
+        >
+          {workflowItems[0].icon}
+        </span>
+        <h3 id="workflowTitle" class="text-3xl font-semibold">
+          {workflowItems[0].label}
+        </h3>
+      </div>
+      <p id="workflowDesc" class="text-[16px] leading-relaxed">
+        {workflowItems[0].description}
+      </p>
+    </div>
   </div>
 </section>
+
+<script define:vars={{ workflowItems }}>
+  const buttons = document.querySelectorAll(".workflow-btn");
+  const card = document.getElementById("workflowCard");
+  const content = document.getElementById("workflowContent");
+  const icon = document.getElementById("workflowIcon");
+  const title = document.getElementById("workflowTitle");
+  const desc = document.getElementById("workflowDesc");
+
+  let activeIndex = 0;
+
+  buttons.forEach((btn, index) => {
+    btn.addEventListener("click", () => {
+      if (index === activeIndex) return;
+
+      const id = btn.dataset.id;
+      const data = workflowItems.find((item) => item.id === id);
+      if (!data) return;
+
+      // Determine direction
+      // Always slide from right (Exit Left, Enter from Right) for a consistent flow
+      const exitClass = "-translate-x-4";
+      const enterClass = "translate-x-4";
+
+      // Update Buttons immediately
+      buttons.forEach((b) => {
+        b.classList.remove("bg-black", "text-white");
+        b.classList.add("bg-transparent", "text-black");
+      });
+      btn.classList.remove("bg-transparent", "text-black");
+      btn.classList.add("bg-black", "text-white");
+
+      // Update Card Styling immediately (looks better if bg changes with button)
+      if (card) {
+        card.style.borderColor = data.color;
+        card.style.backgroundColor = data.color + "0d";
+      }
+
+      // Animate Content
+      if (content) {
+        // 1. Exit
+        content.classList.add("opacity-0", exitClass);
+
+        setTimeout(() => {
+          // 2. Update Data
+          if (icon) {
+            icon.innerText = data.icon;
+            icon.style.color = data.color;
+          }
+          if (title) title.innerText = data.label;
+          if (desc) desc.innerText = data.description;
+
+          // 3. Prepare Entry
+          content.classList.remove(exitClass);
+          content.classList.add(enterClass);
+
+          // Force reflow
+          void content.offsetWidth;
+
+          // 4. Enter
+          content.classList.remove("opacity-0", enterClass);
+
+          activeIndex = index;
+        }, 300); // Match transition duration
+      }
+    });
+  });
+</script>
