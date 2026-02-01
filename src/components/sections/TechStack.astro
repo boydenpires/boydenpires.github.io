@@ -1,0 +1,123 @@
+---
+import { Image } from "astro:assets";
+import Heading from "../Heading.astro";
+
+// Import logos
+import logoVue from "../../assets/logos/tech/vue.svg";
+import logoHtml from "../../assets/logos/tech/html.svg";
+import logoJs from "../../assets/logos/tech/javascript.svg";
+import logoTs from "../../assets/logos/tech/typescript.svg";
+import logoNode from "../../assets/logos/tech/node.svg";
+import logoNuxt from "../../assets/logos/tech/nuxt.svg";
+import logoReact from "../../assets/logos/tech/react.svg";
+import logoCss from "../../assets/logos/tech/css.svg";
+import logoSass from "../../assets/logos/tech/sass.svg";
+import logoTailwind from "../../assets/logos/tech/tailwind.svg";
+import logoDocker from "../../assets/logos/tech/docker.svg";
+import logoGit from "../../assets/logos/tech/git.svg";
+import logoVite from "../../assets/logos/tech/vite.svg";
+import logoFigma from "../../assets/logos/tech/figma.svg";
+
+const techGroups = [
+  {
+    title: "Core & Frameworks",
+    description:
+      "The fundamental languages and powerful frameworks I build with.",
+    layoutClass: "row-span-2 bg-[#E0F3E5]",
+    tools: [
+      {
+        name: "HTML",
+        logo: logoHtml,
+        href: "https://developer.mozilla.org/en-US/docs/Web/HTML",
+      },
+      {
+        name: "JavaScript",
+        logo: logoJs,
+        href: "https://developer.mozilla.org/en-US/docs/Web/JavaScript",
+      },
+      {
+        name: "TypeScript",
+        logo: logoTs,
+        href: "https://www.typescriptlang.org/",
+      },
+      { name: "Vue", logo: logoVue, href: "https://vuejs.org/" },
+      { name: "Nuxt", logo: logoNuxt, href: "https://nuxt.com/" },
+      { name: "React", logo: logoReact, href: "https://react.dev/" },
+      { name: "Node.js", logo: logoNode, href: "https://nodejs.org/" },
+    ],
+  },
+  {
+    title: "Styling & Design",
+    description:
+      "Tools for crafting beautiful, responsive, and scalable user interfaces.",
+    layoutClass: "bg-[#E0E0F3]",
+    tools: [
+      {
+        name: "CSS",
+        logo: logoCss,
+        href: "https://developer.mozilla.org/en-US/docs/Web/CSS",
+      },
+      { name: "Sass", logo: logoSass, href: "https://sass-lang.com/" },
+      {
+        name: "Tailwind CSS",
+        logo: logoTailwind,
+        href: "https://tailwindcss.com/",
+      },
+    ],
+  },
+  {
+    title: "Build & Workflow",
+    description:
+      "Essential tools for version control, bundling, and design collaboration.",
+    layoutClass: "bg-[#F3E0F1]",
+    tools: [
+      { name: "Git", logo: logoGit, href: "https://git-scm.com/" },
+      { name: "Vite", logo: logoVite, href: "https://vitejs.dev/" },
+      { name: "Docker", logo: logoDocker, href: "https://www.docker.com/" },
+      { name: "Figma", logo: logoFigma, href: "https://www.figma.com/" },
+    ],
+  },
+];
+---
+
+<section class="wrapper" id="tech-stack">
+  <Heading
+    heading="What I Build With."
+    subText="The tools and technologies I use to turn ideas into real, working interfaces."
+  />
+
+  <div class="grid grid-cols-1 lg:grid-cols-2 lg:grid-rows-2 gap-6">
+    {
+      techGroups.map((group) => (
+        <div
+          class:list={[
+            "px-8 py-10 rounded-4xl flex flex-col gap-12",
+            group.layoutClass,
+          ]}
+        >
+          <div class="mb-4">
+            <h3 class="font-semibold text-3xl text-black">{group.title}</h3>
+            <p class="text-[16px] mt-2">{group.description}</p>
+          </div>
+          <div class="flex items-center gap-10 flex-wrap mt-auto">
+            {group.tools.map((tool) => (
+              <a
+                href={tool.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="hover:scale-[1.1] transition-all duration-200"
+                aria-label={`Visit official documentation for ${tool.name}`}
+                title={tool.name}
+              >
+                <Image src={tool.logo} alt={`${tool.name} logo`} width={54} />
+              </a>
+            ))}
+          </div>
+        </div>
+      ))
+    }
+  </div>
+  <h4 class="text-[20px] text-gray-600 italic text-center mt-16">
+    "Tools change. Principles stay."
+  </h4>
+</section>

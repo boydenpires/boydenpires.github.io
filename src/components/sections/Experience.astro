@@ -31,7 +31,7 @@ const experienceCards = [
 ---
 
 <section id="experience">
-  <div class="wrapper mb-16">
+  <div class="wrapper">
     <Heading
       heading="Building for the Real World."
       subText="Over 4 years of experience building and maintaining production frontend applications."
@@ -61,7 +61,9 @@ const experienceCards = [
 
   const experienceContainer = document.getElementById("experienceContainer");
   const sliderBtnLeft = document.querySelector('button[data-direction="left"]');
-  const sliderBtnRight = document.querySelector('button[data-direction="right"]');
+  const sliderBtnRight = document.querySelector(
+    'button[data-direction="right"]',
+  );
 
   // Elements to update
   const modalLabel = document.getElementById("experienceModalLabel");
@@ -113,7 +115,7 @@ const experienceCards = [
       modalOverlay.classList.remove("opacity-0");
       modal.classList.remove("translate-y-full", "md:scale-95");
       modal.classList.add("translate-y-0", "md:scale-100");
-      
+
       // Focus management
       btnCloseModal?.focus();
     }, 10);
@@ -127,8 +129,8 @@ const experienceCards = [
     modal.classList.add("translate-y-full", "md:scale-95");
 
     if (lastFocusedElement) {
-        lastFocusedElement.setAttribute("aria-expanded", "false");
-        lastFocusedElement.focus();
+      lastFocusedElement.setAttribute("aria-expanded", "false");
+      lastFocusedElement.focus();
     }
 
     setTimeout(() => {
