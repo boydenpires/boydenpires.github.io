@@ -1,13 +1,12 @@
 ---
 import { Image } from "astro:assets";
-import headerImg from "../../assets/images/img-header.jpg";
 ---
 
 <section id="about" class="wrapper-short">
   <div
     class="bg-[#F5E7E7] p-8 lg:p-10 rounded-4xl flex flex-col lg:flex-row gap-8 lg:items-center justify-between"
   >
-    <div class="w-full max-w-[65ch]">
+    <div class="w-full">
       <h2 class="text-3xl font-bold text-black mb-3">A Bit About Me.</h2>
       <p class="text-[16px] text-black">
         A frontend developer based in India with over 4 years of experience
@@ -20,7 +19,7 @@ import headerImg from "../../assets/images/img-header.jpg";
         the process.
       </p>
     </div>
-    <Image
+    <!-- <Image
       class="rounded-3xl"
       src={headerImg}
       alt="A photo of me"
@@ -28,6 +27,6 @@ import headerImg from "../../assets/images/img-header.jpg";
       data-tilt
       data-tilt-glare
       data-tilt-max-glare="0.3"
-    />
+    /> -->
   </div>
 </section>

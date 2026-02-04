@@ -8,11 +8,15 @@ const { direction } = Astro.props;
 
 <button
   data-direction={direction}
-  aria-label={direction === "left" ? "Scroll experience cards left" : "Scroll experience cards right"}
+  aria-label={direction === "left"
+    ? "Scroll experience cards left"
+    : "Scroll experience cards right"}
   aria-controls="experienceContainer"
   class:list={[
-    "border border-black rounded-full py-2 px-5 transition-all cursor-pointer hover:bg-green-10",
-    direction === "left" ? "hover:-translate-x-0.5" : "hover:translate-x-0.5",
+    "border border-black rounded-full py-2 px-5 transition-all cursor-pointer hover:bg-green-10 active:bg-green-10",
+    direction === "left"
+      ? "hover:-translate-x-0.5 active:-translate-x-0.5"
+      : "hover:translate-x-0.5 active:translate-x-0.5",
   ]}
 >
   {
